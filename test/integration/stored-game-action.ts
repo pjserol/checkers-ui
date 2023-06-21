@@ -7,6 +7,7 @@ import { getSignerFromMnemonic } from "../../util/signer";
 import { CheckersSigningStargateClient } from "../../src/checkers_signingstargateclient";
 import { CheckersExtension } from "../../src/modules/checkers/queries";
 import { GasPrice } from "@cosmjs/stargate";
+import { askFaucet } from "../../util/faucet";
 
 config();
 
@@ -45,5 +46,44 @@ describe("StoredGame Action", function () {
       }
     );
     checkers = aliceClient.checkersQueryClient!.checkers;
+  });
+
+  const aliceCredit = {
+      stake: 100,
+      token: 1,
+    },
+    bobCredit = {
+      stake: 100,
+      token: 1,
+    };
+
+  before("credit test accounts", async function () {
+    this.timeout(40_000);
+    if (
+      parseInt((await aliceClient.getBalance(alice, "stake")).amount, 10) <
+        aliceCredit.stake ||
+      parseInt((await aliceClient.getBalance(alice, "token")).amount, 10) <
+        aliceCredit.token
+    )
+      await askFaucet(alice, aliceCredit);
+    expect(
+      parseInt((await aliceClient.getBalance(alice, "stake")).amount, 10)
+    ).to.be.greaterThanOrEqual(aliceCredit.stake);
+    expect(
+      parseInt((await aliceClient.getBalance(alice, "token")).amount, 10)
+    ).to.be.greaterThanOrEqual(aliceCredit.token);
+    if (
+      parseInt((await bobClient.getBalance(bob, "stake")).amount, 10) <
+        bobCredit.stake ||
+      parseInt((await bobClient.getBalance(bob, "token")).amount, 10) <
+        bobCredit.token
+    )
+      await askFaucet(bob, bobCredit);
+    expect(
+      parseInt((await bobClient.getBalance(bob, "stake")).amount, 10)
+    ).to.be.greaterThanOrEqual(bobCredit.stake);
+    expect(
+      parseInt((await bobClient.getBalance(bob, "token")).amount, 10)
+    ).to.be.greaterThanOrEqual(bobCredit.token);
   });
 });
