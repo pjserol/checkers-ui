@@ -32,6 +32,9 @@ docker run --rm -it \
     --network checkers-net \
     checkersd_i:standalone start
 
+docker stop checkers
+docker network rm checkers-net
+
 # Launc test with docker
 
 docker run --rm \
@@ -42,7 +45,7 @@ docker run --rm \
     npm test
 
 # Launch local checkers + run test
-
+# (reminder to update env file wither proper value)
 ignite chain serve
 
 npm test
