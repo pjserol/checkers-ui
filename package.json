@@ -9,7 +9,8 @@
   "devDependencies": {
     "@types/chai": "4.3.3",
     "@types/dotenv": "8.2.0",
-    "@types/mocha": "9.1.1",
+    "@types/jest": "^29.5.2",
+    "@types/mocha": "^9.1.1",
     "@types/node": "18.7.5",
     "chai": "4.3.6",
     "dotenv": "16.0.1",

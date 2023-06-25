@@ -3,7 +3,10 @@ import {
   StargateClient,
   StargateClientOptions,
 } from "@cosmjs/stargate";
-import { Tendermint34Client } from "@cosmjs/tendermint-rpc";
+import {
+  Tendermint34Client,
+  BroadcastTxSyncResponse,
+} from "@cosmjs/tendermint-rpc";
 import {
   CheckersExtension,
   setupCheckersExtension,
@@ -31,5 +34,11 @@ export class CheckersStargateClient extends StargateClient {
         setupCheckersExtension
       );
     }
+  }
+
+  public async tmBroadcastTxSync(
+    tx: Uint8Array
+  ): Promise<BroadcastTxSyncResponse> {
+    return this.forceGetTmClient().broadcastTxSync({ tx });
   }
 }
