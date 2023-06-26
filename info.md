@@ -99,3 +99,9 @@ docker run --rm -it \
 docker stop cosmos-faucet checkers
 docker network rm checkers-net
 ```
+
+## Prepare Webpack
+
+```sh
+npm install react-app-rewired@2.2.1 --save-dev --save-exact
+```
