@@ -25,8 +25,16 @@ const titleStyles: CSSProperties = {
   textAlign: "center",
 };
 
-const GameContainerWrapper = () => (
-  <GameContainer index={useParams().index!} location={useLocation()} />
+interface GameContainerWrapperProps {
+  rpcUrl: string;
+}
+
+const GameContainerWrapper = ({ rpcUrl }: GameContainerWrapperProps) => (
+  <GameContainer
+    index={useParams().index!}
+    location={useLocation()}
+    rpcUrl={rpcUrl}
+  />
 );
 
 const AsyncGameContainer = Loadable({
@@ -54,7 +62,10 @@ const App = ({ rpcUrl }: AppProps) => {
             path="menu"
             element={<MenuContainer location={""} rpcUrl={rpcUrl} />}
           />
-          <Route path="play/:index" element={<AsyncGameContainer />} />
+          <Route
+            path="play/:index"
+            element={<AsyncGameContainer rpcUrl={rpcUrl} />}
+          />
           <Route
             path="howtoplay"
             element={<AsyncHowToPlay goBack={goBack} />}
