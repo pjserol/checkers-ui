@@ -35,7 +35,7 @@ docker run --rm -it \
 docker stop checkers
 docker network rm checkers-net
 
-# Launc test with docker
+# Launch test with docker
 
 docker run --rm \
     -v $(pwd):/client -w /client \
@@ -104,4 +104,19 @@ docker network rm checkers-net
 
 ```sh
 npm install react-app-rewired@2.2.1 --save-dev --save-exact
+```
+
+## Integration with Keplr
+
+```sh
+npm install @keplr-wallet/types@0.10.17 --save-exact --save-dev
+```
+
+## Add token to account
+
+```sh
+curl --request POST \
+        --header "Content-Type: application/json" \
+        --data '{"address":"cosmos17excjd99u45c4fkzljwlx8eqyn5dplcujkwag8","denom":"stake"}' \
+        localhost:4500/credit
 ```

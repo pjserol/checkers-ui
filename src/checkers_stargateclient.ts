@@ -4,8 +4,8 @@ import {
   StargateClientOptions,
 } from "@cosmjs/stargate";
 import {
-  Tendermint34Client,
   BroadcastTxSyncResponse,
+  Tendermint34Client,
 } from "@cosmjs/tendermint-rpc";
 import {
   CheckersExtension,
